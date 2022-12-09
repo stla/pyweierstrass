@@ -2,7 +2,7 @@
 name = "pyweierstrass"
 version = "0.1.0"
 description = "Weierstrass elliptic functions"
-authors = ["Your Name <you@example.com>"]
+authors = ["Stéphane Laurent <laurent_step@outlook.fr>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
