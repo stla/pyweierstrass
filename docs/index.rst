@@ -6,13 +6,9 @@
 Welcome to pyweierstrass's documentation!
 =========================================
 
-.. automodule:: pyweierstrass.weierstrass
-    :members:
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
 
 
 Indices and tables
@@ -21,3 +17,10 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+Members functions
+=================
+
+.. automodule:: pyweierstrass.weierstrass
+    :members:
