@@ -1,4 +1,4 @@
-from mpmath import jtheta, pi, exp, sqrt, agm, qfrom, mpc
+from mpmath import jtheta, pi, exp, sqrt, agm, qfrom, mpc, elliprf, im
 from math import isinf
 
 def kleinjinv(z):
@@ -164,6 +164,8 @@ def wp(z, omega):
         
     """
     omega1, omega2 = omega
+    if im(omega2/omega1) <= 0:
+        raise Exception("The imaginary part of the periods ratio is negative.")
     return _wp_from_tau(z/omega1/2, omega2/omega1) / omega1 / omega1 / 4
 
 def _wpprime_from_omega1_and_tau(z, omega1, tau):
@@ -198,6 +200,8 @@ def wpprime(z, omega):
         
     """
     omega1, omega2 = omega
+    if im(omega2/omega1) <= 0:
+        raise Exception("The imaginary part of the periods ratio is negative.")
     return _wpprime_from_omega1_and_tau(z, omega1, omega2 / omega1)
 
 
@@ -222,6 +226,8 @@ def wsigma(z, omega):
     omega1, omega2 = omega
     w1 = -2 * omega1 / pi
     tau = omega2 / omega1
+    if im(tau) <= 0:
+        raise Exception("The imaginary part of the periods ratio is negative.")
     q = qfrom(tau = tau)
     f = jtheta(1, 0, q, 1)
     h = -pi / 6 / w1 * jtheta(1, 0, q, 3) / f
@@ -246,9 +252,37 @@ def wzeta(z, omega):
         
     """
     omega1, omega2 = omega
+    if im(omega2/omega1) <= 0:
+        raise Exception("The imaginary part of the periods ratio is negative.")
     w1 = - omega1 / pi
     tau = omega2 / omega1
     q = qfrom(tau = tau)
     p = 1 / 2 / w1
     eta1 = p / 6 / w1 * jtheta(1, 0, q, 3) / jtheta(1, 0, q, 1)
     return -eta1 * z + p * jtheta(1, p*z, q, 1) / jtheta(1, p*z, q)
+
+# inverse Weierstrass p-function
+def invwp(w, omega):
+    """
+    Inverse Weierstrass p-function.
+    
+    Parameters
+    ----------
+    w : complex
+        A complex number.
+    omega : complex pair
+        A pair of complex numbers, the half-periods.
+        
+    Returns
+    -------
+    complex 
+        The inverse Weierstrass p-function evaluated at `w`.
+        
+    """
+    omega1, omega2 = omega
+    if im(omega2/omega1) <= 0:
+        raise Exception("The imaginary part of the periods ratio is negative.")
+    e1 = wp(omega1, omega)
+    e2 = wp(omega2, omega)
+    e3 = wp(-omega1-omega2, omega)
+    return elliprf(w-e1, w-e2, w-e3)
