@@ -1,4 +1,4 @@
-from mpmath import jtheta, pi, exp, sqrt, agm, qfrom, mpc, elliprf, im
+from mpmath import jtheta, pi, exp, sqrt, agm, qfrom, mpc, elliprf, im, gamma
 from math import isinf
 
 def kleinjinv(z):
@@ -18,6 +18,8 @@ def kleinjinv(z):
     """
     if (isinf(z.real) or isinf(z.imag)):
         x = 0
+    elif z == 0:
+        return mpc(0.5, sqrt(3)/2)
     else:
         z2 = z * z
         z3 = z2 * z
@@ -76,13 +78,17 @@ def eisensteinG4(tau):
     return pi*pi*pi*pi / 45 * eisensenteinE4(tau)
 
 def _half_periods(g2, g3):
-    g2cube = g2 * g2 * g2
-    j = 1728 / (1 - 27*g3*g3/g2cube)
-    if (isinf(j.real) or isinf(j.imag)):
-        return -1j*pi/2/sqrt(3), mpc("inf", "inf")
-    tau = kleinjinv(j)
-    t = 15 / 4 / g2 * eisensteinG4(tau)
-    omega1 = 1j * t**(0.25)
+    if g2 == 0 and g3 == 1:
+        omega1 = gamma(1/3)**3 / 4 / pi
+        tau = mpc(0.5, sqrt(3)/2)
+    else:
+        g2cube = g2 * g2 * g2
+        j = 1728 * g2cube / (g2cube - 27*g3*g3)
+        if (isinf(j.real) or isinf(j.imag)):
+            return -1j*pi/2/sqrt(3), mpc("inf", "inf")
+        tau = kleinjinv(j)
+        t = 15 / 4 / g2 * eisensteinG4(tau)
+        omega1 = 1j * t**(0.25)
     return omega1, tau
 
 def omega_from_g(g2, g3):
