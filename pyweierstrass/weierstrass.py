@@ -78,8 +78,8 @@ def eisensteinG4(tau):
     return pi*pi*pi*pi / 45 * eisensenteinE4(tau)
 
 def _half_periods(g2, g3):
-    if g2 == 0 and g3 == 1:
-        omega1 = gamma(1/3)**3 / 4 / pi
+    if g2 == 0:
+        omega1 = g3^(-1/6) * gamma(1/3)**3 / 4 / pi
         tau = mpc(0.5, sqrt(3)/2)
     else:
         g2cube = g2 * g2 * g2
