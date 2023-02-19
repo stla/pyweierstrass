@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyweierstrass"
-version = "0.2.1"
+version = "0.2.2"
 description = "Weierstrass elliptic functions"
 authors = ["Stéphane Laurent <laurent_step@outlook.fr>"]
 readme = "README.md"
