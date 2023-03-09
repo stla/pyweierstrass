@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath("../"))
 project = 'pyweierstrass'
 copyright = '2022, Stéphane Laurent'
 author = 'Stéphane Laurent'
-release = '0.2.1'
+release = '0.2.3'
 
 
 # -- General configuration ---------------------------------------------------

@@ -1,5 +1,5 @@
-from mpmath import jtheta, pi, exp, sqrt, agm, qfrom, mpc, elliprf, im, gamma
-from math import isinf
+from mpmath import jtheta, pi, exp, sqrt, agm, qfrom, mpc, elliprf, re, im, gamma, sin
+from math import isinf, isnan
 
 def kleinjinv(z):
     """
@@ -129,9 +129,10 @@ def _half_periods(g2, g3):
         tau = mpc(0.5, sqrt(3)/2)
     else:
         g2cube = g2 * g2 * g2
-        j = 1728 * g2cube / (g2cube - 27*g3*g3)
-        if (isinf(j.real) or isinf(j.imag)):
-            return -1j*pi/2/sqrt(3), mpc("inf", "inf")
+        denominator = g2cube - 27*g3*g3
+        if denominator == 0:
+            return -1j*pi/2/sqrt(3), mpc("inf", "inf")            
+        j = 1728 * g2cube / denominator
         tau = kleinjinv(j)
         if g3 == 0:
             t = 15 / 4 / g2 * eisensteinG4(tau)
@@ -281,6 +282,10 @@ def wsigma(z, omega):
         
     """
     omega1, omega2 = omega
+    if (isinf(re(omega1)) or isinf(im(omega1))):
+        return z
+    if (isinf(re(omega2)) or isinf(im(omega2)) or isnan(re(omega2)) or isnan(im(omega2))):
+        return (2*omega1/pi * exp(1/6*(pi*z/2/omega1)**2) * sin(pi*z/2/omega1))
     w1 = -2 * omega1 / pi
     tau = omega2 / omega1
     if im(tau) <= 0:
