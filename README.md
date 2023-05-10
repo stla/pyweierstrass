@@ -4,3 +4,8 @@
 
 Some Weierstrass functions: p-function, sigma function, zeta function, and 
 inverse p-function.
+
+```
+pip install pyweierstrass
+```
+

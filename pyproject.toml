@@ -2,7 +2,10 @@
 name = "pyweierstrass"
 version = "0.2.3"
 description = "Weierstrass elliptic functions"
+homepage = "https://github.com/stla/pyweierstrass"
 authors = ["Stéphane Laurent <laurent_step@outlook.fr>"]
+documentation = "https://pyweierstrass.readthedocs.io/en/latest/"
+keywords = ["Weierstrass functions", "elliptic functions"]
 license = "GPL-3.0-only"
 readme = "README.md"
 
